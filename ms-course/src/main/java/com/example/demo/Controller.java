@@ -1,0 +1,64 @@
+package com.example.demo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.model.Course;
+import com.example.demo.service.CourseService;
+
+@CrossOrigin
+@RestController
+@RequestMapping("Course")
+public class Controller {
+	@Autowired
+	CourseService cs;
+	
+	
+	@PostMapping("/addcourse")
+	  public Object addcourse(@RequestBody Course course,
+	      @RequestHeader("Token") String token) {
+	    
+	    return cs.addCourse(course,token);
+	  }
+	  
+	  @DeleteMapping("/deletecourse/{ID}")
+	  public Object deleteCourse(@PathVariable("ID") int id,
+	      @RequestHeader("Token") String token) {
+	    
+	    return cs.deleteCourse(id,token);
+	  }
+	  
+	  @PutMapping("/updatecourse/{ID}")
+	  public Object updatecourse(@PathVariable("ID") int id,
+		  @RequestBody Course course,
+	      @RequestHeader("Token") String token) {
+	    
+	    return cs.updateCourse(id,course ,token);
+	  }
+	  
+	  @GetMapping("/getcourse/{ID}")
+	  public Object getCourse(@PathVariable("ID") int id,
+	      @RequestHeader("Token") String token) {
+	    
+	    return cs.getCourse(id,token);
+	  }
+	  
+	  @GetMapping("/getallcourses/{PAGE}/{SIZE}")
+	  public Object getAllCourses(@PathVariable("PAGE") int page,
+		  @PathVariable("SIZE") int size,
+	      @RequestHeader("Token") String token) {
+	    
+	      return cs.getAllCourses(page,size,token);
+	  }
+
+}

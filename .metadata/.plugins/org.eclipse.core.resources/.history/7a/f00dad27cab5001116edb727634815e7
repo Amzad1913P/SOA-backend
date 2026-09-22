@@ -1,0 +1,14 @@
+package com.example.demo.model.repository;
+
+import java.awt.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.demo.model.Enrolment;
+
+public interface EnrolmentRepository extends JpaRepository<Enrolment, Integer> {
+	java.util.List<Enrolment> findByUserid(int user_id);
+
+	void deleteByUseridAndCourseid(int user_id, int course_id);
+
+}

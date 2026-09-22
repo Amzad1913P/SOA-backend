@@ -1,0 +1,42 @@
+package com.example.demo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.service.annotation.GetExchange;
+
+import com.example.demo.model.Enrolment;
+import com.example.demo.model.service.EnrolmentService;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+
+
+@CrossOrigin
+@RestController
+@RequestMapping("enrolment")
+public class EnrolController {
+	
+	@Autowired
+	EnrolmentService es;
+	
+	@PostMapping("enrol")
+	public Object enrol(@RequestBody Enrolment enrolment, @RequestHeader String token) {
+		return es.enrol(enrolment,token);
+	}
+	
+	@GetExchange("getenrolled")
+	public Object getenrolled(@RequestBody int userid, @RequestHeader String token) {
+		return es.getenrolled(userid,token);
+	}
+	
+	@DeleteMapping("dropout")
+	public Object deleteenrol(@RequestBody int courseid, @RequestHeader String token) {
+		return es.deleteEnrolment(courseid,token)
+	}
+	
+
+}

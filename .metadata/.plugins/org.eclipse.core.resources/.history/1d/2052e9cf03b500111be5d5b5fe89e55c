@@ -1,0 +1,49 @@
+spring.application.name=MS-API-GATEWAY
+server.port=8000
+
+# Eureka Server
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+
+# Register Gateway with Eureka
+eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true
+
+#################################################
+# Route 1 : Addition Service
+#################################################
+
+spring.cloud.gateway.server.webflux.routes[0].id=MS1
+spring.cloud.gateway.server.webflux.routes[0].uri=lb://MS1
+spring.cloud.gateway.server.webflux.routes[0].predicates[0]=Path=/ms1/**
+
+spring.cloud.gateway.server.webflux.routes[0].filters[0].name=CircuitBreaker
+spring.cloud.gateway.server.webflux.routes[0].filters[0].args.name=ms1CB
+spring.cloud.gateway.server.webflux.routes[0].filters[0].args.fallbackUri=forward:/fallback/ms1
+
+#################################################
+# Route 2 : Multiplication Service
+#################################################
+
+spring.cloud.gateway.server.webflux.routes[1].id=ms-course
+spring.cloud.gateway.server.webflux.routes[1].uri=lb://ms-course
+spring.cloud.gateway.server.webflux.routes[1].predicates[0]=Path=/course/**
+
+spring.cloud.gateway.server.webflux.routes[1].filters[0].name=CircuitBreaker
+spring.cloud.gateway.server.webflux.routes[1].filters[0].args.name=COURSECB
+spring.cloud.gateway.server.webflux.routes[1].filters[0].args.fallbackUri=forward:/fallback/COURSE
+
+#################################################
+# Route 3 : Skill3 Service
+#################################################
+
+#spring.cloud.gateway.server.webflux.routes[2].id=skill3
+#spring.cloud.gateway.server.webflux.routes[2].uri=lb://skill3
+#spring.cloud.gateway.server.webflux.routes[2].predicates[0]=Path=/skill3/**
+#
+#resilience4j.timelimiter.configs.default.timeout-duration=5s
+#
+#resilience4j.circuitbreaker.configs.default.sliding-window-size=3
+#
+#resilience4j.circuitbreaker.configs.default.failure-rate-threshold=50
+#
+#resilience4j.circuitbreaker.configs.default.wait-duration-in-open-state=30

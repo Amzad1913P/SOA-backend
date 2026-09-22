@@ -1,0 +1,59 @@
+package com.example.demo;
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.service.annotation.GetExchange;
+
+import com.example.demo.model.Enrolment;
+import com.example.demo.model.service.EnrolmentService;
+import com.example.demo.model.service.JWTService;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+
+
+@CrossOrigin
+@RestController
+@RequestMapping("enrolment")
+public class EnrolController {
+	
+	@Autowired
+	EnrolmentService es;
+	
+	@Autowired
+	JWTService Jwts;
+	
+//	@PostMapping("enrol")
+//	public Object enrol(@RequestBody int courseid,@RequestBody int instructorid, @RequestHeader String token) {
+//		return es.enrol(courseid,instructorid,token);
+//	}
+	
+	@PostMapping("enrol")
+	public Object enrol(@RequestBody Map<String, Integer> data,
+	                    @RequestHeader String token) {
+
+	    int courseid = data.get("courseid");
+	    int instructorid = data.get("instructorid");
+
+	    return es.enrol(courseid, instructorid, token);
+	}
+	
+	@GetMapping("getenroled")
+	public Object getEnroled( @RequestHeader String token) {
+		return es.getEnroled(token);
+	}
+	
+	@DeleteMapping("dropout")
+	public Object deleteEnrolment(@RequestBody int courseid, @RequestHeader String token) {
+		return es.deleteEnrolment(courseid,token);
+	}
+	
+
+}

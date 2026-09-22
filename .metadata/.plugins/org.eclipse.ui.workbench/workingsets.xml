@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1789643496236_0" label="Java Main Sources" name="Java Main Sources"/>
+<workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1789643496263_1" label="Java Test Sources" name="Java Test Sources"/>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1789643580815_3" label="MS-EUREKA-SERVER" name="MS-EUREKA-SERVER">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/MS-EUREKA-SERVER" type="4"/>
+</workingSet>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1789643614180_4" label="MS-API-GATEWAY-A" name="MS-API-GATEWAY-A">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/MS-API-GATEWAY-A" type="4"/>
+</workingSet>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1789644341867_5" label="Auth" name="Auth">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/ms1.1" type="4"/>
+</workingSet>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1789644762782_6" label="ms2.1" name="ms2.1">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/ms2.1" type="4"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1789643500534_2" label="Window Working Set" name="Aggregate for window 1789643500533"/>
+</workingSetManager>
