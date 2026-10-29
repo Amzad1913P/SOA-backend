@@ -96,6 +96,7 @@ public class EnrolmentService {
 	    Map<String, String> response = new HashMap<>();
 	    try {
 	        Map<String, String> parsedJWT = Jwts.validateJWT(token);
+	        
 	        int role = Integer.parseInt(parsedJWT.get("role"));
 	        if (role != 2) {
 	            response.put("message", "Access denied");

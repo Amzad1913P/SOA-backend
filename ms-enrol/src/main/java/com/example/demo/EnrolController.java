@@ -57,7 +57,7 @@ public class EnrolController {
 	
 	@GetMapping("getallenroled")
 	public Object getAllEnroled(@RequestHeader("token") String token) {
-	    return es.getEnroled(token);
+	    return es.getAllEnroled(token);
 	}
 	
 	

@@ -28,6 +28,14 @@ public class CourseService {
 		Map<String, String> response = new HashMap<>();
 		try {
 			Map<String, String> parsedJWT = Jwts.validateJWT(token);
+			String role = parsedJWT.get("role");
+			if (!role.equals("2")) {
+
+                response.put("code", "403");
+                response.put("message", "Access denied. Admin only.");
+
+                return response;
+            }
 			repo.save(course);
 			//repo.save(course);
 			response.put("message", "Course created successfully by MS2.1");
@@ -61,6 +69,15 @@ public class CourseService {
 		Map<String, String> response = new HashMap<>();
 		try {
 			Map<String, String> parsedJWT = Jwts.validateJWT(token);
+			String role = parsedJWT.get("role");
+
+            if (!role.equals("2")) {
+
+                response.put("code", "403");
+                response.put("message", "Access denied. Admin only.");
+
+                return response;
+            }
 			Course course=repo.findById(id).get();
 			course.setName(incourse.getName());
 			course.setInstructor(incourse.getInstructor());

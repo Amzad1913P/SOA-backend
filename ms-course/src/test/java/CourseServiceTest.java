@@ -1,0 +1,91 @@
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
+
+import java.util.Map;
+
+import com.example.demo.model.Course;
+import com.example.demo.repository.CourseRepository;
+import com.example.demo.service.CourseService;
+import com.example.demo.service.JWTService;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
+class CourseServiceTest {
+
+    @Mock
+    private CourseRepository repo;
+
+    @Mock
+    private JWTService jwtService;
+
+    @InjectMocks
+    private CourseService courseService;
+
+    private Course course;
+
+    @BeforeEach
+    void setUp() {
+        course = new Course();
+        course.setName("Spring Boot");
+        course.setCoursecode("SB101");
+        course.setInstructor("Sai");
+        course.setInstructorid(1);
+    }
+
+    @Test
+    void addCourse_whenTokenIsValid_savesCourse() throws Exception {
+
+        when(jwtService.validateJWT("valid-token"))
+                .thenReturn(Map.of(
+                        "username", "test-user",
+                        "role", "2"
+                ));
+
+        Object result = courseService.addCourse(course, "valid-token");
+
+        verify(jwtService).validateJWT("valid-token");
+        verify(repo).save(course);
+
+        @SuppressWarnings("unchecked")
+        Map<String, String> response = (Map<String, String>) result;
+
+        assertEquals(
+                "Course created successfully by MS2.1",
+                response.get("message")
+        );
+    }
+
+    @Test
+    void addCourse_whenUserIsNotAdmin_deniesAccess() throws Exception {
+
+        when(jwtService.validateJWT("student-token"))
+                .thenReturn(Map.of(
+                        "username", "student-user",
+                        "role", "1"
+                ));
+
+        Object result = courseService.addCourse(course, "student-token");
+
+        verify(jwtService).validateJWT("student-token");
+        verifyNoInteractions(repo);
+
+        @SuppressWarnings("unchecked")
+        Map<String, String> response = (Map<String, String>) result;
+
+        assertEquals("403", response.get("code"));
+        assertEquals(
+                "Access denied. Admin only.",
+                response.get("message")
+        );
+    }
+}
